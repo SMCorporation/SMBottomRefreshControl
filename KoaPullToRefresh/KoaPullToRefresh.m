@@ -89,12 +89,12 @@ static char UIScrollViewPullToRefreshView;
                 pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed
               programmingAnimationOffestY:(CGFloat)programmingAnimationOffestY
 {
-    self.pullToRefreshView.offsetY = programmingAnimationOffestY;
+    self.bottomPullToRefreshView.offsetY = programmingAnimationOffestY;
     KoaPullToRefreshViewHeight = pullToRefreshHeight;
     KoaPullToRefreshViewHeightShowed = pullToRefreshHeightShowed;
     KoaPullToRefreshViewTitleBottomMargin += pullToRefreshHeightShowed;
     
-    if (!self.pullToRefreshView) {
+    if (!self.bottomPullToRefreshView) {
         
         //Initial y position
         CGFloat yOrigin = self.contentSize.height;
@@ -114,51 +114,51 @@ static char UIScrollViewPullToRefreshView;
         view.originalTopInset = self.contentInset.top;
         view.originalBottomInset = self.contentInset.bottom;
         
-        self.pullToRefreshView = view;
-        self.showsPullToRefresh = YES;
+        self.bottomPullToRefreshView = view;
+        self.showsBottomPullToRefresh = YES;
         
         [view addSubview:backgroundExtra];
         [view sendSubviewToBack:backgroundExtra];
     }
 }
 
-- (void)setPullToRefreshView:(KoaPullToRefreshView *)pullToRefreshView {
+- (void)setBottomPullToRefreshView:(KoaPullToRefreshView *)bottomPullToRefreshView {
     [self willChangeValueForKey:@"KoaPullToRefreshView"];
     objc_setAssociatedObject(self, &UIScrollViewPullToRefreshView,
-                             pullToRefreshView,
+                             bottomPullToRefreshView,
                              OBJC_ASSOCIATION_ASSIGN);
     [self didChangeValueForKey:@"KoaPullToRefreshView"];
 }
 
-- (KoaPullToRefreshView *)pullToRefreshView {
+- (KoaPullToRefreshView *)bottomPullToRefreshView {
     return objc_getAssociatedObject(self, &UIScrollViewPullToRefreshView);
 }
 
-- (void)setShowsPullToRefresh:(BOOL)showsPullToRefresh {
-    self.pullToRefreshView.hidden = !showsPullToRefresh;
+- (void)setShowsBottomPullToRefresh:(BOOL)showsBottomPullToRefresh {
+    self.bottomPullToRefreshView.hidden = !showsBottomPullToRefresh;
     
-    if(!showsPullToRefresh) {
-        if (self.pullToRefreshView.isObserving) {
-            [self removeObserver:self.pullToRefreshView forKeyPath:@"contentOffset"];
-            [self removeObserver:self.pullToRefreshView forKeyPath:@"frame"];
-            [self.pullToRefreshView resetScrollViewContentInset];
-            self.pullToRefreshView.isObserving = NO;
+    if(!showsBottomPullToRefresh) {
+        if (self.bottomPullToRefreshView.isObserving) {
+            [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset"];
+            [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"frame"];
+            [self.bottomPullToRefreshView resetScrollViewContentInset];
+            self.bottomPullToRefreshView.isObserving = NO;
         }
     }else {
-        if (!self.pullToRefreshView.isObserving) {
-            [self addObserver:self.pullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
-            [self addObserver:self.pullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-            [self addObserver:self.pullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
-            self.pullToRefreshView.isObserving = YES;
+        if (!self.bottomPullToRefreshView.isObserving) {
+            [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+            [self addObserver:self.bottomPullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
+            self.bottomPullToRefreshView.isObserving = YES;
             
             CGFloat yOrigin = self.contentSize.height;
-            self.pullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaPullToRefreshViewHeight + KoaPullToRefreshViewHeightShowed);
+            self.bottomPullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaPullToRefreshViewHeight + KoaPullToRefreshViewHeightShowed);
         }
     }
 }
 
-- (BOOL)showsPullToRefresh {
-    return !self.pullToRefreshView.hidden;
+- (BOOL)showsBottomPullToRefresh {
+    return !self.bottomPullToRefreshView.hidden;
 }
 
 @end
@@ -199,7 +199,7 @@ static char UIScrollViewPullToRefreshView;
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     if (self.superview && newSuperview == nil) {
         UIScrollView *scrollView = (UIScrollView *)self.superview;
-        if (scrollView.showsPullToRefresh) {
+        if (scrollView.showsBottomPullToRefresh) {
             if (self.isObserving) {
                 //If enter this branch, it is the moment just before "KoaPullToRefreshView's dealloc", so remove observer here
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];

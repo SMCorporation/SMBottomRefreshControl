@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "-setScrollViewContentInset:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
+            startingLineNumber = "343"
+            endingLineNumber = "343"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427629007.810338"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "-layoutSubviews"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "-resetScrollViewContentInset"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "-setState:"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "345"
-            endingLineNumber = "345"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
             landmarkName = "-scrollViewDidScroll:"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../KoaPullToRefresh/KoaPullToRefresh.m"
-            timestampString = "427630279.475012"
+            timestampString = "427632958.567215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "-stopAnimating"
             landmarkType = "5">
          </BreakpointContent>
