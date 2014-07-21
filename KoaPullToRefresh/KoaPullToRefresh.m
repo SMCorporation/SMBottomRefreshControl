@@ -45,45 +45,45 @@ static CGFloat KoaPullToRefreshViewTitleBottomMargin = 12;
 static char UIScrollViewPullToRefreshView;
 
 @implementation UIScrollView (KoaPullToRefresh)
-@dynamic pullToRefreshView, showsPullToRefresh;
+@dynamic bottomPullToRefreshView, showsBottomPullToRefresh;
 
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
 {
-    [self addPullToRefreshWithActionHandler:actionHandler backgroundColor:[UIColor grayColor]];
+    [self addBottomPullToRefreshWithActionHandler:actionHandler backgroundColor:[UIColor grayColor]];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
                           backgroundColor:(UIColor *)customBackgroundColor
 {
-    [self addPullToRefreshWithActionHandler:actionHandler
-                            backgroundColor:customBackgroundColor
-                  pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
+    [self addBottomPullToRefreshWithActionHandler:actionHandler
+                                  backgroundColor:customBackgroundColor
+                        pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor
-                pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+                                backgroundColor:(UIColor *)customBackgroundColor
+                      pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed
 {
-    [self addPullToRefreshWithActionHandler:actionHandler
-                            backgroundColor:customBackgroundColor
-                        pullToRefreshHeight:KoaPullToRefreshViewHeight
-                  pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
+    [self addBottomPullToRefreshWithActionHandler:actionHandler
+                                  backgroundColor:customBackgroundColor
+                              pullToRefreshHeight:KoaPullToRefreshViewHeight
+                        pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
                           backgroundColor:(UIColor *)customBackgroundColor
                       pullToRefreshHeight:(CGFloat)pullToRefreshHeight
                 pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed
 {
-    [self addPullToRefreshWithActionHandler:actionHandler
-                            backgroundColor:customBackgroundColor
-                        pullToRefreshHeight:pullToRefreshHeight
-                  pullToRefreshHeightShowed:pullToRefreshHeightShowed
-                programmingAnimationOffestY:0];
+    [self addBottomPullToRefreshWithActionHandler:actionHandler
+                                  backgroundColor:customBackgroundColor
+                              pullToRefreshHeight:pullToRefreshHeight
+                        pullToRefreshHeightShowed:pullToRefreshHeightShowed
+                      programmingAnimationOffestY:0];
 }
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
                           backgroundColor:(UIColor *)customBackgroundColor
                       pullToRefreshHeight:(CGFloat)pullToRefreshHeight
                 pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed

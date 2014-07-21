@@ -41,21 +41,21 @@
                                                                 @"Chocolate bar pastry", nil];
     
     //Add pull to refresh
-    [self.tableView addPullToRefreshWithActionHandler:^{
+    [self.tableView addBottomPullToRefreshWithActionHandler:^{
         [self refreshTable];
     } backgroundColor:[UIColor colorWithRed:0.251 green:0.663 blue:0.827 alpha:1] pullToRefreshHeightShowed:4];
     
     //Customize pulltorefresh text colors
-    [self.tableView.pullToRefreshView setTextColor:[UIColor whiteColor]];
-    [self.tableView.pullToRefreshView setTextFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16]];
+    [self.tableView.bottomPullToRefreshView setTextColor:[UIColor whiteColor]];
+    [self.tableView.bottomPullToRefreshView setTextFont:[UIFont fontWithName:@"OpenSans-Semibold" size:16]];
     
     //Set fontawesome icon
-    [self.tableView.pullToRefreshView setFontAwesomeIcon:@"icon-refresh"];
+    [self.tableView.bottomPullToRefreshView setFontAwesomeIcon:@"icon-refresh"];
 
     //Set titles
-    [self.tableView.pullToRefreshView setTitle:@"Pull" forState:KoaPullToRefreshStateStopped];
-    [self.tableView.pullToRefreshView setTitle:@"Release" forState:KoaPullToRefreshStateTriggered];
-    [self.tableView.pullToRefreshView setTitle:@"Loading" forState:KoaPullToRefreshStateLoading];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Pull" forState:KoaPullToRefreshStateStopped];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Release" forState:KoaPullToRefreshStateTriggered];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Loading" forState:KoaPullToRefreshStateLoading];
     
     //Hide scroll indicator
     [self.tableView setShowsVerticalScrollIndicator:NO];
@@ -65,7 +65,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:5];
+    [self.tableView.bottomPullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,7 +107,7 @@
                           @"New Value 10",] mutableCopy];
 
     [self.tableView reloadData];
-    [self.tableView.pullToRefreshView stopAnimating];
+    [self.tableView.bottomPullToRefreshView stopAnimating];
 
 }
 

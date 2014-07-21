@@ -15,32 +15,23 @@
 
 @interface UIScrollView (KoaPullToRefresh)
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor;
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler;
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+                                backgroundColor:(UIColor *)customBackgroundColor;
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor
-                pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed;
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+                                backgroundColor:(UIColor *)customBackgroundColor
+                      pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed;
 
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor
-                pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed;
-
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor
-                      pullToRefreshHeight:(CGFloat)pullToRefreshHeight
-                pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed;
-
-- (void)addPullToRefreshWithActionHandler:(void (^)(void))actionHandler
-                          backgroundColor:(UIColor *)customBackgroundColor
-                      pullToRefreshHeight:(CGFloat)pullToRefreshHeight
-                pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed
-              programmingAnimationOffestY:(CGFloat)programmingAnimationOffestY;
+- (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
+                                backgroundColor:(UIColor *)customBackgroundColor
+                            pullToRefreshHeight:(CGFloat)pullToRefreshHeight
+                      pullToRefreshHeightShowed:(CGFloat)pullToRefreshHeightShowed;
 
 
-@property (nonatomic, strong) KoaPullToRefreshView *pullToRefreshView;
-@property (nonatomic, assign) BOOL showsPullToRefresh;
+
+@property (nonatomic, strong) KoaPullToRefreshView *bottomPullToRefreshView;
+@property (nonatomic, assign) BOOL showsBottomPullToRefresh;
 
 @end
 
