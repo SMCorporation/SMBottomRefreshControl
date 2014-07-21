@@ -67,7 +67,6 @@ typedef NSUInteger KoaPullToRefreshState;
 
 - (void)setTitle:(NSString *)title forState:(KoaPullToRefreshState)state;
 - (void)setFontAwesomeIcon:(NSString *)fontAwesomeIcon;
-//- (void)startAnimating;
 - (void)stopAnimating;
 
 @end
