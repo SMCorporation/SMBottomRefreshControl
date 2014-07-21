@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>52CEC9AD-0A74-4CD6-A4A9-6E022DC5D948</string>
+	<string>976697A0-43C9-4C4E-B934-F85A61D5A88A</string>
 	<key>IDESourceControlProjectName</key>
 	<string>KoaPullToRefresh</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D0930AA5-03AC-4722-AC81-A0319B243716</key>
-		<string>ssh://github.com/SMCorporation/KoaPullToRefresh.git</string>
+		<key>D9B3D79C-762C-4687-AD6A-43D00742027F</key>
+		<string>ssh://github.com/Maks-Jago/SMBottomRefreshControl.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Demo/KoaPullToRefresh.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D0930AA5-03AC-4722-AC81-A0319B243716</key>
+		<key>D9B3D79C-762C-4687-AD6A-43D00742027F</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/SMCorporation/KoaPullToRefresh.git</string>
+	<string>ssh://github.com/Maks-Jago/SMBottomRefreshControl.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D0930AA5-03AC-4722-AC81-A0319B243716</string>
+	<string>D9B3D79C-762C-4687-AD6A-43D00742027F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D0930AA5-03AC-4722-AC81-A0319B243716</string>
+			<string>D9B3D79C-762C-4687-AD6A-43D00742027F</string>
 			<key>IDESourceControlWCCName</key>
-			<string>KoaPullToRefresh</string>
+			<string>SMBottomRefreshControl</string>
 		</dict>
 	</array>
 </dict>

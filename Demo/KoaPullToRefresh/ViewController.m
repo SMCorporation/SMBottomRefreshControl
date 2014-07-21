@@ -60,12 +60,12 @@
     //Hide scroll indicator
     [self.tableView setShowsVerticalScrollIndicator:NO];
 
-    [self.tableView.pullToRefreshView startAnimating];
+//    [self.tableView.pullToRefreshView startAnimating];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:2];
+    [self.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:5];
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,8 +76,39 @@
 
 - (void)refreshTable
 {
-    [self.tableView performSelector:@selector(reloadData) withObject:nil afterDelay:2];
-    [self.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:2];
+    [self performSelector:@selector(newValues) withObject:nil afterDelay:5];
+}
+
+- (void)newValues
+{
+    self.tableValues = [@[@"Croissant cookie gingerbread",
+                          @"Chocolate bar marshmallow",
+                          @"Pudding carrot cake",
+                          @"Topping candy canes chocolate bar",
+                          @"Fruitcake chocolate",
+                          @"Brownie biscuit",
+                          @"Gummies ice cream",
+                          @"Topping sesame snaps",
+                          @"Topping marshmallow applicake",
+                          @"Toffee jujubes",
+                          @"Tart macaroon muffin",
+                          @"Lemon drops",
+                          @"Dessert biscuit oat cake",
+                          @"Chocolate bar pastry",
+                          @"New Value 1",
+                          @"New Value 2",
+                          @"New Value 3",
+                          @"New Value 4",
+                          @"New Value 5",
+                          @"New Value 6",
+                          @"New Value 7",
+                          @"New Value 8",
+                          @"New Value 9",
+                          @"New Value 10",] mutableCopy];
+
+    [self.tableView reloadData];
+    [self.tableView.pullToRefreshView stopAnimating];
+
 }
 
 #pragma mark UITableViewDataSource
