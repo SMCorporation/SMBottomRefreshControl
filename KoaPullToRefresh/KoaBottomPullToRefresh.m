@@ -6,22 +6,22 @@
 //  Copyright (c) 2013 Sergi Gracia. All rights reserved.
 //
 
-#import "KoaPullToRefresh.h"
+#import "KoaBottomPullToRefresh.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define fequal(a,b) (fabs((a) - (b)) < FLT_EPSILON)
 #define fequalzero(a) (fabs(a) < FLT_EPSILON)
 
-static CGFloat KoaPullToRefreshViewHeight = 82;
-static CGFloat KoaPullToRefreshViewHeightShowed = 0;
-static CGFloat KoaPullToRefreshViewTitleBottomMargin = 12;
+static CGFloat KoaBottomPullToRefreshHeight = 82;
+static CGFloat KoaBottomPullToRefreshHeightShowed = 0;
+static CGFloat KoaBottomPullToRefreshTitleBottomMargin = 12;
 
-@interface KoaPullToRefreshView ()
+@interface KoaBottomPullToRefresh ()
 
 @property (nonatomic, copy) void (^pullToRefreshActionHandler)(void);
 @property (nonatomic, strong, readwrite) UILabel *titleLabel;
 @property (nonatomic, strong, readwrite) UILabel *loaderLabel;
-@property (nonatomic, readwrite) KoaPullToRefreshState state;
+@property (nonatomic, readwrite) KoaBottomPullToRefreshState state;
 @property (nonatomic, strong) NSMutableArray *titles;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, readwrite) CGFloat originalTopInset;
@@ -58,7 +58,7 @@ static char UIScrollViewPullToRefreshView;
 {
     [self addBottomPullToRefreshWithActionHandler:actionHandler
                                   backgroundColor:customBackgroundColor
-                        pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
+                        pullToRefreshHeightShowed:KoaBottomPullToRefreshHeightShowed];
 }
 
 - (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
@@ -67,8 +67,8 @@ static char UIScrollViewPullToRefreshView;
 {
     [self addBottomPullToRefreshWithActionHandler:actionHandler
                                   backgroundColor:customBackgroundColor
-                              pullToRefreshHeight:KoaPullToRefreshViewHeight
-                        pullToRefreshHeightShowed:KoaPullToRefreshViewHeightShowed];
+                              pullToRefreshHeight:KoaBottomPullToRefreshHeight
+                        pullToRefreshHeightShowed:KoaBottomPullToRefreshHeightShowed];
 }
 
 - (void)addBottomPullToRefreshWithActionHandler:(void (^)(void))actionHandler
@@ -90,9 +90,9 @@ static char UIScrollViewPullToRefreshView;
               programmingAnimationOffestY:(CGFloat)programmingAnimationOffestY
 {
     self.bottomPullToRefreshView.offsetY = programmingAnimationOffestY;
-    KoaPullToRefreshViewHeight = pullToRefreshHeight;
-    KoaPullToRefreshViewHeightShowed = pullToRefreshHeightShowed;
-    KoaPullToRefreshViewTitleBottomMargin += pullToRefreshHeightShowed;
+    KoaBottomPullToRefreshHeight = pullToRefreshHeight;
+    KoaBottomPullToRefreshHeightShowed = pullToRefreshHeightShowed;
+    KoaBottomPullToRefreshTitleBottomMargin += pullToRefreshHeightShowed;
     
     if (!self.bottomPullToRefreshView) {
         
@@ -100,12 +100,12 @@ static char UIScrollViewPullToRefreshView;
         CGFloat yOrigin = self.contentSize.height;
         
         //Put background extra to fill top white space
-        UIView *backgroundExtra = [[UIView alloc] initWithFrame:CGRectMake(0, yOrigin*8, self.bounds.size.width, KoaPullToRefreshViewHeight*8)];
+        UIView *backgroundExtra = [[UIView alloc] initWithFrame:CGRectMake(0, yOrigin*8, self.bounds.size.width, KoaBottomPullToRefreshHeight*8)];
         [backgroundExtra setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [backgroundExtra setBackgroundColor:customBackgroundColor];
         
         //Init pull to refresh view
-        KoaPullToRefreshView *view = [[KoaPullToRefreshView alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, KoaPullToRefreshViewHeight + KoaPullToRefreshViewHeightShowed)];
+        KoaBottomPullToRefresh *view = [[KoaBottomPullToRefresh alloc] initWithFrame:CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight + KoaBottomPullToRefreshHeightShowed)];
         view.pullToRefreshActionHandler = actionHandler;
         view.scrollView = self;
         view.backgroundColor = customBackgroundColor;
@@ -122,15 +122,15 @@ static char UIScrollViewPullToRefreshView;
     }
 }
 
-- (void)setBottomPullToRefreshView:(KoaPullToRefreshView *)bottomPullToRefreshView {
-    [self willChangeValueForKey:@"KoaPullToRefreshView"];
+- (void)setBottomPullToRefreshView:(KoaBottomPullToRefresh *)bottomPullToRefreshView {
+    [self willChangeValueForKey:@"KoaBottomPullToRefresh"];
     objc_setAssociatedObject(self, &UIScrollViewPullToRefreshView,
                              bottomPullToRefreshView,
                              OBJC_ASSOCIATION_ASSIGN);
-    [self didChangeValueForKey:@"KoaPullToRefreshView"];
+    [self didChangeValueForKey:@"KoaBottomPullToRefresh"];
 }
 
-- (KoaPullToRefreshView *)bottomPullToRefreshView {
+- (KoaBottomPullToRefresh *)bottomPullToRefreshView {
     return objc_getAssociatedObject(self, &UIScrollViewPullToRefreshView);
 }
 
@@ -152,7 +152,7 @@ static char UIScrollViewPullToRefreshView;
             self.bottomPullToRefreshView.isObserving = YES;
             
             CGFloat yOrigin = self.contentSize.height;
-            self.bottomPullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaPullToRefreshViewHeight + KoaPullToRefreshViewHeightShowed);
+            self.bottomPullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight + KoaBottomPullToRefreshHeightShowed);
         }
     }
 }
@@ -165,7 +165,7 @@ static char UIScrollViewPullToRefreshView;
 
 
 #pragma mark - KoaPullToRefresh
-@implementation KoaPullToRefreshView
+@implementation KoaBottomPullToRefresh
 
 @synthesize pullToRefreshActionHandler, arrowColor, textColor, textFont;
 @synthesize state = _state;
@@ -182,7 +182,7 @@ static char UIScrollViewPullToRefreshView;
         self.textColor = [UIColor darkGrayColor];
         self.backgroundColor = [UIColor whiteColor];
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.state = KoaPullToRefreshStateStopped;
+        self.state = KoaBottomPullToRefreshStateStopped;
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [self.loaderLabel setTextAlignment:NSTextAlignmentLeft];
         
@@ -201,7 +201,7 @@ static char UIScrollViewPullToRefreshView;
         UIScrollView *scrollView = (UIScrollView *)self.superview;
         if (scrollView.showsBottomPullToRefresh) {
             if (self.isObserving) {
-                //If enter this branch, it is the moment just before "KoaPullToRefreshView's dealloc", so remove observer here
+                //If enter this branch, it is the moment just before "KoaBottomPullToRefresh's dealloc", so remove observer here
                 [scrollView removeObserver:self forKeyPath:@"contentOffset"];
                 [scrollView removeObserver:self forKeyPath:@"contentSize"];
                 [scrollView removeObserver:self forKeyPath:@"frame"];
@@ -222,11 +222,11 @@ static char UIScrollViewPullToRefreshView;
     
     //Set title frame
     CGSize titleSize = [self.titleLabel.text sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(labelMaxWidth,self.titleLabel.font.lineHeight) lineBreakMode:self.titleLabel.lineBreakMode];
-    CGFloat titleY = KoaPullToRefreshViewHeight - KoaPullToRefreshViewHeightShowed - titleSize.height - KoaPullToRefreshViewTitleBottomMargin;
+    CGFloat titleY = KoaBottomPullToRefreshHeight - KoaBottomPullToRefreshHeightShowed - titleSize.height - KoaBottomPullToRefreshTitleBottomMargin;
     
     //Set state of loader label
     switch (self.state) {
-        case KoaPullToRefreshStateStopped: {
+        case KoaBottomPullToRefreshStateStopped: {
                 [self.loaderLabel setAlpha:0];
                 [self.loaderLabel setFrame:CGRectMake(self.frame.size.width/2 - self.loaderLabel.frame.size.width/2,
                                                       titleY + 100,
@@ -237,7 +237,7 @@ static char UIScrollViewPullToRefreshView;
         }
             break;
             
-        case KoaPullToRefreshStateLoading: {
+        case KoaBottomPullToRefreshStateLoading: {
             self.titleLabel.center = CGPointMake(self.frame.size.width / 2, titleY + 7);
             
             [self.loaderLabel setAlpha:1];
@@ -304,7 +304,7 @@ static char UIScrollViewPullToRefreshView;
         
         CGFloat yOrigin;
         yOrigin = self.scrollView.contentSize.height;
-        self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaPullToRefreshViewHeight);
+        self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight);
     }
     else if([keyPath isEqualToString:@"frame"]) {
         [self layoutSubviews];
@@ -318,18 +318,18 @@ static char UIScrollViewPullToRefreshView;
     }
     
     //Change title label alpha
-    [self.titleLabel setAlpha: ((contentOffset.y * 1) / KoaPullToRefreshViewHeight) - 0.1];
+    [self.titleLabel setAlpha: ((contentOffset.y * 1) / KoaBottomPullToRefreshHeight) - 0.1];
     
-    if(self.state != KoaPullToRefreshStateLoading) {
+    if(self.state != KoaBottomPullToRefreshStateLoading) {
         CGFloat scrollOffsetThreshold;
         scrollOffsetThreshold = self.frame.origin.y-self.originalTopInset;
         
-        if(!self.scrollView.isDragging && self.state == KoaPullToRefreshStateTriggered)
-            self.state = KoaPullToRefreshStateLoading;
-        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == KoaPullToRefreshStateStopped)
-            self.state = KoaPullToRefreshStateTriggered;
-        else if(contentOffset.y >= scrollOffsetThreshold && self.state != KoaPullToRefreshStateStopped)
-            self.state = KoaPullToRefreshStateStopped;
+        if(!self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateTriggered)
+            self.state = KoaBottomPullToRefreshStateLoading;
+        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateStopped)
+            self.state = KoaBottomPullToRefreshStateTriggered;
+        else if(contentOffset.y >= scrollOffsetThreshold && self.state != KoaBottomPullToRefreshStateStopped)
+            self.state = KoaBottomPullToRefreshStateStopped;
     } else {
         CGFloat offset;
         UIEdgeInsets contentInset;
@@ -340,7 +340,7 @@ static char UIScrollViewPullToRefreshView;
     }
     
     //Set content offset for special cases
-    if(self.state != KoaPullToRefreshStateLoading) {
+    if(self.state != KoaBottomPullToRefreshStateLoading) {
         if (self.scrollView.contentOffset.y > self.scrollView.contentSize.height && self.scrollView.contentOffset.y > 0) {
             [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top,
                                                               self.scrollView.contentInset.left,
@@ -400,12 +400,12 @@ static char UIScrollViewPullToRefreshView;
 
 #pragma mark - Setters
 
-- (void)setTitle:(NSString *)title forState:(KoaPullToRefreshState)state {
+- (void)setTitle:(NSString *)title forState:(KoaBottomPullToRefreshState)state {
     if(!title) {
         title = @"";
     }
     
-    if(state == KoaPullToRefreshStateAll) {
+    if(state == KoaBottomPullToRefreshStateAll) {
         [self.titles replaceObjectsInRange:NSMakeRange(0, 3) withObjectsFromArray:@[title, title, title]];
     } else {
         [self.titles replaceObjectAtIndex:state withObject:title];
@@ -435,39 +435,39 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)stopAnimating
 {
-    self.state = KoaPullToRefreshStateStopped;
+    self.state = KoaBottomPullToRefreshStateStopped;
 
 //    if(self.scrollView.contentOffset.y < -self.originalTopInset) {
 //        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
 //    }
 }
 
-- (void)setState:(KoaPullToRefreshState)newState {
+- (void)setState:(KoaBottomPullToRefreshState)newState {
     
     if(_state == newState) {
         return;
     }
     
-    KoaPullToRefreshState previousState = _state;
+    KoaBottomPullToRefreshState previousState = _state;
     _state = newState;
     
     [self setNeedsLayout];
     
     switch (newState) {
-        case KoaPullToRefreshStateStopped:
+        case KoaBottomPullToRefreshStateStopped:
             [self stopRotatingIcon];
             [self resetScrollViewContentInset];
             self.wasTriggeredByUser = YES;
             break;
             
-        case KoaPullToRefreshStateTriggered:
+        case KoaBottomPullToRefreshStateTriggered:
             break;
             
-        case KoaPullToRefreshStateLoading:
+        case KoaBottomPullToRefreshStateLoading:
             [self startRotatingIcon];
             [self setScrollViewContentInsetForLoading];
             
-            if(previousState == KoaPullToRefreshStateTriggered && pullToRefreshActionHandler) {
+            if(previousState == KoaBottomPullToRefreshStateTriggered && pullToRefreshActionHandler) {
                 pullToRefreshActionHandler();
             }
             

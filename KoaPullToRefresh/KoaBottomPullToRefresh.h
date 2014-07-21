@@ -11,7 +11,7 @@
 #import "NSString+FontAwesome.h"
 #import "UIFont+FontAwesome.h"
 
-@class KoaPullToRefreshView;
+@class KoaBottomPullToRefresh;
 
 @interface UIScrollView (KoaPullToRefresh)
 
@@ -30,22 +30,22 @@
 
 
 
-@property (nonatomic, strong) KoaPullToRefreshView *bottomPullToRefreshView;
+@property (nonatomic, strong) KoaBottomPullToRefresh *bottomPullToRefreshView;
 @property (nonatomic, assign) BOOL showsBottomPullToRefresh;
 
 @end
 
 enum {
-    KoaPullToRefreshStateStopped = 0,
-    KoaPullToRefreshStateTriggered,
-    KoaPullToRefreshStateLoading,
-    KoaPullToRefreshStateAll = 10
+    KoaBottomPullToRefreshStateStopped = 0,
+    KoaBottomPullToRefreshStateTriggered,
+    KoaBottomPullToRefreshStateLoading,
+    KoaBottomPullToRefreshStateAll = 10
 };
 
-typedef NSUInteger KoaPullToRefreshState;
+typedef NSUInteger KoaBottomPullToRefreshState;
 
 
-@interface KoaPullToRefreshView : UIView
+@interface KoaBottomPullToRefresh : UIView
 
 @property (nonatomic, strong) UIColor *arrowColor;
 @property (nonatomic, strong) UIColor *textColor;
@@ -53,10 +53,10 @@ typedef NSUInteger KoaPullToRefreshState;
 @property (nonatomic, strong, readonly) UILabel *titleLabel;
 @property (nonatomic, strong, readonly) UILabel *loaderLabel;
 @property (nonatomic, strong, readonly) NSString *fontAwesomeIcon;
-@property (nonatomic, readonly) KoaPullToRefreshState state;
+@property (nonatomic, readonly) KoaBottomPullToRefreshState state;
 @property (nonatomic, assign) BOOL disable;
 
-- (void)setTitle:(NSString *)title forState:(KoaPullToRefreshState)state;
+- (void)setTitle:(NSString *)title forState:(KoaBottomPullToRefreshState)state;
 - (void)setFontAwesomeIcon:(NSString *)fontAwesomeIcon;
 - (void)stopAnimating;
 

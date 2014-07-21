@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "KoaPullToRefresh.h"
+#import "KoaBottomPullToRefresh.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface ViewController ()
@@ -53,9 +53,9 @@
     [self.tableView.bottomPullToRefreshView setFontAwesomeIcon:@"icon-refresh"];
 
     //Set titles
-    [self.tableView.bottomPullToRefreshView setTitle:@"Pull" forState:KoaPullToRefreshStateStopped];
-    [self.tableView.bottomPullToRefreshView setTitle:@"Release" forState:KoaPullToRefreshStateTriggered];
-    [self.tableView.bottomPullToRefreshView setTitle:@"Loading" forState:KoaPullToRefreshStateLoading];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Pull" forState:KoaBottomPullToRefreshStateStopped];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Release" forState:KoaBottomPullToRefreshStateTriggered];
+    [self.tableView.bottomPullToRefreshView setTitle:@"Loading" forState:KoaBottomPullToRefreshStateLoading];
     
     //Hide scroll indicator
     [self.tableView setShowsVerticalScrollIndicator:NO];

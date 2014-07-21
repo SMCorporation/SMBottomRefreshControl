@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D53FBCF197915F600BB8A19 /* KoaPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D53FBCE197915F600BB8A19 /* KoaPullToRefresh.m */; };
+		2D53FBCF197915F600BB8A19 /* KoaBottomPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D53FBCE197915F600BB8A19 /* KoaBottomPullToRefresh.m */; };
 		555AC06B173B93B0001EAC94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555AC06A173B93B0001EAC94 /* UIKit.framework */; };
 		555AC06D173B93B0001EAC94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555AC06C173B93B0001EAC94 /* Foundation.framework */; };
 		555AC06F173B93B0001EAC94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 555AC06E173B93B0001EAC94 /* CoreGraphics.framework */; };
@@ -29,8 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D53FBCD197915F600BB8A19 /* KoaPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KoaPullToRefresh.h; path = ../../KoaPullToRefresh/KoaPullToRefresh.h; sourceTree = "<group>"; };
-		2D53FBCE197915F600BB8A19 /* KoaPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KoaPullToRefresh.m; path = ../../KoaPullToRefresh/KoaPullToRefresh.m; sourceTree = "<group>"; };
+		2D53FBCD197915F600BB8A19 /* KoaBottomPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KoaBottomPullToRefresh.h; path = ../../KoaPullToRefresh/KoaBottomPullToRefresh.h; sourceTree = "<group>"; };
+		2D53FBCE197915F600BB8A19 /* KoaBottomPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = KoaBottomPullToRefresh.m; path = ../../KoaPullToRefresh/KoaBottomPullToRefresh.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		555AC067173B93B0001EAC94 /* KoaPullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KoaPullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		555AC06A173B93B0001EAC94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		555AC06C173B93B0001EAC94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,8 +109,8 @@
 				555AC082173B93B0001EAC94 /* ViewController.h */,
 				555AC083173B93B0001EAC94 /* ViewController.m */,
 				555AC085173B93B0001EAC94 /* ViewController.xib */,
-				2D53FBCD197915F600BB8A19 /* KoaPullToRefresh.h */,
-				2D53FBCE197915F600BB8A19 /* KoaPullToRefresh.m */,
+				2D53FBCD197915F600BB8A19 /* KoaBottomPullToRefresh.h */,
+				2D53FBCE197915F600BB8A19 /* KoaBottomPullToRefresh.m */,
 				55D8EC76173D053300006E3F /* Resources */,
 				555AC071173B93B0001EAC94 /* Supporting Files */,
 			);
@@ -219,7 +219,7 @@
 				555AC077173B93B0001EAC94 /* main.m in Sources */,
 				555AC07B173B93B0001EAC94 /* AppDelegate.m in Sources */,
 				555AC084173B93B0001EAC94 /* ViewController.m in Sources */,
-				2D53FBCF197915F600BB8A19 /* KoaPullToRefresh.m in Sources */,
+				2D53FBCF197915F600BB8A19 /* KoaBottomPullToRefresh.m in Sources */,
 				55D8EC7B173D053300006E3F /* UIFont+FontAwesome.m in Sources */,
 				55D8EC7E173D05E400006E3F /* NSString+FontAwesome.m in Sources */,
 			);
