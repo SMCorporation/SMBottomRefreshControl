@@ -117,6 +117,8 @@ static char UIScrollViewPullToRefreshView;
         
         [view addSubview:backgroundExtra];
         [view sendSubviewToBack:backgroundExtra];
+    } else {
+        self.bottomPullToRefreshView.pullToRefreshActionHandler = actionHandler;
     }
 }
 
@@ -162,7 +164,9 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)relocateBottomPullToRefresh
 {
-    [self setShowsBottomPullToRefresh:YES];
+    if (self.showsBottomPullToRefresh) {
+        [self setShowsBottomPullToRefresh:YES];
+    }
 }
 
 @end
