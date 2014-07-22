@@ -33,6 +33,8 @@
 @property (nonatomic, strong) KoaBottomPullToRefresh *bottomPullToRefreshView;
 @property (nonatomic, assign) BOOL showsBottomPullToRefresh;
 
+- (void)relocateBottomPullToRefresh;
+
 @end
 
 enum {

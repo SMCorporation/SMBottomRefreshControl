@@ -26,10 +26,8 @@ static CGFloat KoaBottomPullToRefreshTitleBottomMargin = 12;
 @property (nonatomic, weak) UIScrollView *scrollView;
 @property (nonatomic, readwrite) CGFloat originalTopInset;
 @property (nonatomic, readwrite) CGFloat originalBottomInset;
-@property (nonatomic, assign) BOOL wasTriggeredByUser;
 @property (nonatomic, assign) BOOL showsPullToRefresh;
 @property (nonatomic, assign) BOOL isObserving;
-@property (nonatomic, assign) BOOL programmaticallyLoading;
 @property (nonatomic, assign) CGFloat offsetY;
 
 
@@ -97,10 +95,10 @@ static char UIScrollViewPullToRefreshView;
     if (!self.bottomPullToRefreshView) {
         
         //Initial y position
-        CGFloat yOrigin = self.contentSize.height;
+        CGFloat yOrigin = (self.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.contentSize.height;
         
         //Put background extra to fill top white space
-        UIView *backgroundExtra = [[UIView alloc] initWithFrame:CGRectMake(0, yOrigin*8, self.bounds.size.width, KoaBottomPullToRefreshHeight*8)];
+        UIView *backgroundExtra = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, KoaBottomPullToRefreshHeight*8)];
         [backgroundExtra setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [backgroundExtra setBackgroundColor:customBackgroundColor];
         
@@ -134,31 +132,37 @@ static char UIScrollViewPullToRefreshView;
     return objc_getAssociatedObject(self, &UIScrollViewPullToRefreshView);
 }
 
-- (void)setShowsBottomPullToRefresh:(BOOL)showsBottomPullToRefresh {
+- (void)setShowsBottomPullToRefresh:(BOOL)showsBottomPullToRefresh
+{
     self.bottomPullToRefreshView.hidden = !showsBottomPullToRefresh;
     
-    if(!showsBottomPullToRefresh) {
+    if (!showsBottomPullToRefresh) {
         if (self.bottomPullToRefreshView.isObserving) {
             [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset"];
             [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"frame"];
             [self.bottomPullToRefreshView resetScrollViewContentInset];
             self.bottomPullToRefreshView.isObserving = NO;
         }
-    }else {
+    } else {
         if (!self.bottomPullToRefreshView.isObserving) {
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
             self.bottomPullToRefreshView.isObserving = YES;
-            
-            CGFloat yOrigin = self.contentSize.height;
-            self.bottomPullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight + KoaBottomPullToRefreshHeightShowed);
         }
+        
+        CGFloat yOrigin = (self.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.contentSize.height;
+        self.bottomPullToRefreshView.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight + KoaBottomPullToRefreshHeightShowed);
     }
 }
 
 - (BOOL)showsBottomPullToRefresh {
     return !self.bottomPullToRefreshView.hidden;
+}
+
+- (void)relocateBottomPullToRefresh
+{
+    [self setShowsBottomPullToRefresh:YES];
 }
 
 @end
@@ -191,7 +195,6 @@ static char UIScrollViewPullToRefreshView;
                                                         NSLocalizedString(@"Loading",),
                                                         nil];
         
-        self.wasTriggeredByUser = YES;
     }
     return self;
 }
@@ -227,13 +230,13 @@ static char UIScrollViewPullToRefreshView;
     //Set state of loader label
     switch (self.state) {
         case KoaBottomPullToRefreshStateStopped: {
-                [self.loaderLabel setAlpha:0];
-                [self.loaderLabel setFrame:CGRectMake(self.frame.size.width/2 - self.loaderLabel.frame.size.width/2,
-                                                      titleY + 100,
-                                                      self.loaderLabel.frame.size.width,
-                                                      self.loaderLabel.frame.size.height)];
+            [self.loaderLabel setAlpha:0];
+            [self.loaderLabel setFrame:CGRectMake(self.frame.size.width/2 - self.loaderLabel.frame.size.width/2,
+                                                  titleY + 100,
+                                                  self.loaderLabel.frame.size.width,
+                                                  self.loaderLabel.frame.size.height)];
                 
-                self.titleLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 3);
+            self.titleLabel.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2 - 3);
         }
             break;
             
@@ -291,19 +294,13 @@ static char UIScrollViewPullToRefreshView;
         return;
     }
 
-    if (self.scrollView.contentOffset.y < -self.offsetY && self.programmaticallyLoading) {
-        self.scrollView.contentOffset = CGPointMake(0, -self.offsetY);
-    }
-    
-    
     if([keyPath isEqualToString:@"contentOffset"]) {
         [self scrollViewDidScroll:[[change valueForKey:NSKeyValueChangeNewKey] CGPointValue]];
     }
     else if([keyPath isEqualToString:@"contentSize"]) {
         [self layoutSubviews];
-        
-        CGFloat yOrigin;
-        yOrigin = self.scrollView.contentSize.height;
+
+        CGFloat yOrigin = (self.scrollView.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.scrollView.contentSize.height;
         self.frame = CGRectMake(0, yOrigin, self.bounds.size.width, KoaBottomPullToRefreshHeight);
     }
     else if([keyPath isEqualToString:@"frame"]) {
@@ -319,40 +316,36 @@ static char UIScrollViewPullToRefreshView;
     
     //Change title label alpha
     [self.titleLabel setAlpha: ((contentOffset.y * 1) / KoaBottomPullToRefreshHeight) - 0.1];
+    CGFloat yOrigin = (self.scrollView.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.scrollView.contentSize.height;
+    CGFloat offsetForTriggeredCompare = (yOrigin - self.scrollView.frame.size.height) + self.frame.size.height * 0.7;
     
-    if(self.state != KoaBottomPullToRefreshStateLoading) {
-        CGFloat scrollOffsetThreshold;
-        scrollOffsetThreshold = self.frame.origin.y-self.originalTopInset;
+    if (self.state != KoaBottomPullToRefreshStateLoading) {
         
-        if(!self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateTriggered)
+        if (!self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateTriggered) {
             self.state = KoaBottomPullToRefreshStateLoading;
-        else if(contentOffset.y < scrollOffsetThreshold && self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateStopped)
+        }
+        else if (contentOffset.y > offsetForTriggeredCompare && self.scrollView.isDragging && self.state == KoaBottomPullToRefreshStateStopped) {
             self.state = KoaBottomPullToRefreshStateTriggered;
-        else if(contentOffset.y >= scrollOffsetThreshold && self.state != KoaBottomPullToRefreshStateStopped)
+        } else if (contentOffset.y < offsetForTriggeredCompare && self.state == KoaBottomPullToRefreshStateTriggered) {
             self.state = KoaBottomPullToRefreshStateStopped;
-    } else {
-        CGFloat offset;
-        UIEdgeInsets contentInset;
-        offset = MAX(self.scrollView.contentOffset.y * -1, 0.0f);
-        offset = MIN(offset, self.originalTopInset + self.bounds.size.height);
-        contentInset = self.scrollView.contentInset;
-        self.scrollView.contentInset = UIEdgeInsetsMake(contentInset.top, contentInset.left, contentInset.bottom, contentInset.right);
-    }
-    
-    //Set content offset for special cases
-    if(self.state != KoaBottomPullToRefreshStateLoading) {
-        if (self.scrollView.contentOffset.y > self.scrollView.contentSize.height && self.scrollView.contentOffset.y > 0) {
-            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top,
-                                                              self.scrollView.contentInset.left,
-                                                              abs(self.scrollView.contentSize.height),
-                                                              self.scrollView.contentInset.right)];
-        } else if(self.scrollView.contentOffset.y < self.scrollView.contentSize.height) {
-            [self.scrollView setContentInset:UIEdgeInsetsZero];
-        } else {
-            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, self.scrollView.contentInset.left, self.frame.size.height, self.scrollView.contentInset.right)];
         }
     }
-    self.wasTriggeredByUser = YES;
+
+    /*
+    //Set content offset for special cases
+    if(self.state != KoaBottomPullToRefreshStateLoading) {
+        if (self.scrollView.contentOffset.y > offsetForTriggeredCompare && self.scrollView.contentOffset.y >= 0) {
+//            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top,
+//                                                              self.scrollView.contentInset.left,
+//                                                              self.frame.size.height,
+//                                                              self.scrollView.contentInset.right)];
+        } else if(self.scrollView.contentOffset.y < offsetForTriggeredCompare) {
+//            [self.scrollView setContentInset:UIEdgeInsetsZero];
+        } else {
+//            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, self.scrollView.contentInset.left, self.frame.size.height, self.scrollView.contentInset.right)];
+        }
+    }
+     */
 }
 
 
@@ -436,10 +429,6 @@ static char UIScrollViewPullToRefreshView;
 - (void)stopAnimating
 {
     self.state = KoaBottomPullToRefreshStateStopped;
-
-//    if(self.scrollView.contentOffset.y < -self.originalTopInset) {
-//        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x, -self.originalTopInset) animated:YES];
-//    }
 }
 
 - (void)setState:(KoaBottomPullToRefreshState)newState {
@@ -457,7 +446,6 @@ static char UIScrollViewPullToRefreshView;
         case KoaBottomPullToRefreshStateStopped:
             [self stopRotatingIcon];
             [self resetScrollViewContentInset];
-            self.wasTriggeredByUser = YES;
             break;
             
         case KoaBottomPullToRefreshStateTriggered:
@@ -476,7 +464,8 @@ static char UIScrollViewPullToRefreshView;
 }
 
 
-- (void)startRotatingIcon {
+- (void)startRotatingIcon
+{
     CABasicAnimation *rotation;
     rotation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
     rotation.fromValue = [NSNumber numberWithFloat:0];
@@ -486,8 +475,8 @@ static char UIScrollViewPullToRefreshView;
     [self.loaderLabel.layer addAnimation:rotation forKey:@"Spin"];
 }
 
-- (void)stopRotatingIcon {
-    self.programmaticallyLoading = NO;
+- (void)stopRotatingIcon
+{
     [self.loaderLabel.layer removeAnimationForKey:@"Spin"];
 }
 
