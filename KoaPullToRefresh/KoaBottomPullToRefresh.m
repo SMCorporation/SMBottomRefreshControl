@@ -249,7 +249,7 @@ static char UIScrollViewPullToRefreshView;
             
             [self.loaderLabel setAlpha:1];
             [self.loaderLabel setFrame:CGRectMake(self.frame.size.width/2 - self.loaderLabel.frame.size.width/2,
-                                                  titleY - 32,
+                                                  titleY - self.loaderLabel.frame.size.height,
                                                   self.loaderLabel.frame.size.width,
                                                   self.loaderLabel.frame.size.height)];
         }
@@ -278,9 +278,26 @@ static char UIScrollViewPullToRefreshView;
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.bottom = self.frame.size.height;
     [self setScrollViewContentInset:currentInsets];
+
+    CGFloat offsetY = (self.scrollView.contentSize.height - self.scrollView.frame.size.height) + self.frame.size.height;
+    [self setScrollViewContentOffset:CGPointMake(0, offsetY)];
 }
 
-- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset {
+- (void)setScrollViewContentOffset:(CGPoint)contentOffset
+{
+    __weak KoaBottomPullToRefresh *weakSelf = self;
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         weakSelf.scrollView.contentOffset = contentOffset;
+                     }
+                     completion:nil];
+
+}
+
+- (void)setScrollViewContentInset:(UIEdgeInsets)contentInset
+{
     [UIView animateWithDuration:0.3
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState
@@ -319,9 +336,11 @@ static char UIScrollViewPullToRefreshView;
     }
     
     //Change title label alpha
-    [self.titleLabel setAlpha: ((contentOffset.y * 1) / KoaBottomPullToRefreshHeight) - 0.1];
     CGFloat yOrigin = (self.scrollView.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.scrollView.contentSize.height;
     CGFloat offsetForTriggeredCompare = (yOrigin - self.scrollView.frame.size.height) + self.frame.size.height * 0.7;
+    
+    CGFloat alpha = ((contentOffset.y + self.scrollView.frame.size.height) - yOrigin) / self.frame.size.height;
+    [self.titleLabel setAlpha:alpha - 0.1];
     
     if (self.state != KoaBottomPullToRefreshStateLoading) {
         
@@ -339,14 +358,14 @@ static char UIScrollViewPullToRefreshView;
     //Set content offset for special cases
     if(self.state != KoaBottomPullToRefreshStateLoading) {
         if (self.scrollView.contentOffset.y > offsetForTriggeredCompare && self.scrollView.contentOffset.y >= 0) {
-//            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top,
-//                                                              self.scrollView.contentInset.left,
-//                                                              self.frame.size.height,
-//                                                              self.scrollView.contentInset.right)];
+            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top,
+                                                              self.scrollView.contentInset.left,
+                                                              self.frame.size.height,
+                                                              self.scrollView.contentInset.right)];
         } else if(self.scrollView.contentOffset.y < offsetForTriggeredCompare) {
-//            [self.scrollView setContentInset:UIEdgeInsetsZero];
+            [self.scrollView setContentInset:UIEdgeInsetsZero];
         } else {
-//            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, self.scrollView.contentInset.left, self.frame.size.height, self.scrollView.contentInset.right)];
+            [self.scrollView setContentInset:UIEdgeInsetsMake(self.scrollView.contentInset.top, self.scrollView.contentInset.left, self.frame.size.height, self.scrollView.contentInset.right)];
         }
     }
      */
