@@ -141,6 +141,7 @@ static char UIScrollViewPullToRefreshView;
     if (!showsBottomPullToRefresh) {
         if (self.bottomPullToRefreshView.isObserving) {
             [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset"];
+            [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"contentSize"];
             [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"frame"];
             [self.bottomPullToRefreshView resetScrollViewContentInset];
             self.bottomPullToRefreshView.isObserving = NO;
@@ -213,6 +214,10 @@ static char UIScrollViewPullToRefreshView;
                 [scrollView removeObserver:self forKeyPath:@"contentSize"];
                 [scrollView removeObserver:self forKeyPath:@"frame"];
                 self.isObserving = NO;
+                if (self.state == KoaBottomPullToRefreshStateLoading) {
+                    self.state = KoaBottomPullToRefreshStateStopped;
+                    [self stopAnimating];
+                }
             }
         }
     }
