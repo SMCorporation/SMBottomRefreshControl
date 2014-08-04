@@ -136,8 +136,11 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)setShowsBottomPullToRefresh:(BOOL)showsBottomPullToRefresh
 {
+    if (!self.bottomPullToRefreshView) {
+        return;
+    }
+
     self.bottomPullToRefreshView.hidden = !showsBottomPullToRefresh;
-    
     if (!showsBottomPullToRefresh) {
         if (self.bottomPullToRefreshView.isObserving) {
             [self removeObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset"];
@@ -148,10 +151,10 @@ static char UIScrollViewPullToRefreshView;
         }
     } else {
         if (!self.bottomPullToRefreshView.isObserving) {
+            self.bottomPullToRefreshView.isObserving = YES;
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
             [self addObserver:self.bottomPullToRefreshView forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:nil];
-            self.bottomPullToRefreshView.isObserving = YES;
         }
         
         CGFloat yOrigin = (self.contentSize.height < self.frame.size.height) ? self.frame.size.height : self.contentSize.height;
@@ -266,19 +269,20 @@ static char UIScrollViewPullToRefreshView;
 
 - (void)resetScrollViewContentInset
 {
-    if (self.disable) {
-        return;
-    }
+//    if (self.disable) {
+//        return;
+//    }
     
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
-    currentInsets.bottom = self.originalTopInset;
+    currentInsets.bottom = self.originalBottomInset;
     [self setScrollViewContentInset:currentInsets];
 }
 
-- (void)setScrollViewContentInsetForLoading {
-    if (self.disable) {
-        return;
-    }
+- (void)setScrollViewContentInsetForLoading
+{
+//    if (self.disable) {
+//        return;
+//    }
     
     UIEdgeInsets currentInsets = self.scrollView.contentInset;
     currentInsets.bottom = self.frame.size.height;
